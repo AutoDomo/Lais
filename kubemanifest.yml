@@ -1,0 +1,832 @@
+apiVersion: v1
+items:
+  - apiVersion: v1
+    kind: Service
+    metadata:
+      annotations:
+        kompose.cmd: kompose -f docker-compose.yml -o kubemanifest.yml convert
+        kompose.version: 1.26.0 (40646f47)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: db
+      name: db
+    spec:
+      ports:
+        - name: "3306"
+          port: 3306
+          targetPort: 3306
+      selector:
+        io.kompose.service: db
+    status:
+      loadBalancer: {}
+  - apiVersion: v1
+    kind: Service
+    metadata:
+      annotations:
+        kompose.cmd: kompose -f docker-compose.yml -o kubemanifest.yml convert
+        kompose.version: 1.26.0 (40646f47)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: homekit
+      name: homekit
+    spec:
+      ports:
+        - name: "51826"
+          port: 51826
+          targetPort: 51826
+        - name: "5353"
+          port: 5353
+          targetPort: 5353
+      selector:
+        io.kompose.service: homekit
+    status:
+      loadBalancer: {}
+  - apiVersion: v1
+    kind: Service
+    metadata:
+      annotations:
+        kompose.cmd: kompose -f docker-compose.yml -o kubemanifest.yml convert
+        kompose.version: 1.26.0 (40646f47)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: mqttautodomo
+      name: mqttautodomo
+    spec:
+      ports:
+        - name: "1883"
+          port: 1883
+          targetPort: 1883
+        - name: "9001"
+          port: 9001
+          targetPort: 9001
+      selector:
+        io.kompose.service: mqttautodomo
+    status:
+      loadBalancer: {}
+  - apiVersion: v1
+    kind: Service
+    metadata:
+      annotations:
+        kompose.cmd: kompose -f docker-compose.yml -o kubemanifest.yml convert
+        kompose.version: 1.26.0 (40646f47)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: nodediverso
+      name: nodediverso
+    spec:
+      ports:
+        - name: "8085"
+          port: 8085
+          targetPort: 8085
+        - name: "4555"
+          port: 4555
+          targetPort: 4555
+      selector:
+        io.kompose.service: nodediverso
+    status:
+      loadBalancer: {}
+  - apiVersion: v1
+    kind: Service
+    metadata:
+      annotations:
+        kompose.cmd: kompose -f docker-compose.yml -o kubemanifest.yml convert
+        kompose.version: 1.26.0 (40646f47)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: noderedautodomo
+      name: noderedautodomo
+    spec:
+      ports:
+        - name: "1880"
+          port: 1880
+          targetPort: 1880
+        - name: "8082"
+          port: 8082
+          targetPort: 8082
+        - name: "8080"
+          port: 8080
+          targetPort: 8080
+      selector:
+        io.kompose.service: noderedautodomo
+    status:
+      loadBalancer: {}
+  - apiVersion: v1
+    kind: Service
+    metadata:
+      annotations:
+        kompose.cmd: kompose -f docker-compose.yml -o kubemanifest.yml convert
+        kompose.version: 1.26.0 (40646f47)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: phpmyadmin
+      name: phpmyadmin
+    spec:
+      ports:
+        - name: "8081"
+          port: 8081
+          targetPort: 80
+      selector:
+        io.kompose.service: phpmyadmin
+    status:
+      loadBalancer: {}
+  - apiVersion: v1
+    kind: Service
+    metadata:
+      annotations:
+        kompose.cmd: kompose -f docker-compose.yml -o kubemanifest.yml convert
+        kompose.version: 1.26.0 (40646f47)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: supervisorio
+      name: supervisorio
+    spec:
+      ports:
+        - name: "80"
+          port: 80
+          targetPort: 80
+        - name: "443"
+          port: 443
+          targetPort: 443
+      selector:
+        io.kompose.service: supervisorio
+    status:
+      loadBalancer: {}
+  - apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      annotations:
+        kompose.cmd: kompose -f docker-compose.yml -o kubemanifest.yml convert
+        kompose.version: 1.26.0 (40646f47)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: db
+      name: db
+    spec:
+      replicas: 1
+      selector:
+        matchLabels:
+          io.kompose.service: db
+      strategy:
+        type: Recreate
+      template:
+        metadata:
+          annotations:
+            kompose.cmd: kompose -f docker-compose.yml -o kubemanifest.yml convert
+            kompose.version: 1.26.0 (40646f47)
+          creationTimestamp: null
+          labels:
+            io.kompose.service: db
+        spec:
+          containers:
+            - env:
+                - name: MYSQL_DATABASE
+                  value: autohome
+                - name: MYSQL_PASSWORD
+                  value: UserautohomeMysql1.0bi
+                - name: MYSQL_ROOT_PASSWORD
+                  value: comida05autocasa1979
+                - name: MYSQL_USER
+                  value: userautohome
+              image: biarms/mysql
+              name: db
+              ports:
+                - containerPort: 3306
+              resources: {}
+              volumeMounts:
+                - mountPath: ./mariadb:/docker-entrypoint-initdb.d
+                  name: db-claim0
+          restartPolicy: Always
+          volumes:
+            - name: db-claim0
+              persistentVolumeClaim:
+                claimName: db-claim0
+    status: {}
+  - apiVersion: v1
+    kind: PersistentVolumeClaim
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: db-claim0
+      name: db-claim0
+    spec:
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 100Mi
+    status: {}
+  - apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      annotations:
+        kompose.cmd: kompose -f docker-compose.yml -o kubemanifest.yml convert
+        kompose.version: 1.26.0 (40646f47)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: homegbridge
+      name: homegbridge
+    spec:
+      replicas: 1
+      selector:
+        matchLabels:
+          io.kompose.service: homegbridge
+      strategy: {}
+      template:
+        metadata:
+          annotations:
+            kompose.cmd: kompose -f docker-compose.yml -o kubemanifest.yml convert
+            kompose.version: 1.26.0 (40646f47)
+          creationTimestamp: null
+          labels:
+            io.kompose.service: homegbridge
+        spec:
+          containers:
+            - image: eltonssilva/gbridgeconnect:armv7_1.1
+              name: homegbridge
+              resources: {}
+          restartPolicy: Always
+    status: {}
+  - apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      annotations:
+        kompose.cmd: kompose -f docker-compose.yml -o kubemanifest.yml convert
+        kompose.version: 1.26.0 (40646f47)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: homekit
+      name: homekit
+    spec:
+      replicas: 1
+      selector:
+        matchLabels:
+          io.kompose.service: homekit
+      strategy:
+        type: Recreate
+      template:
+        metadata:
+          annotations:
+            kompose.cmd: kompose -f docker-compose.yml -o kubemanifest.yml convert
+            kompose.version: 1.26.0 (40646f47)
+          creationTimestamp: null
+          labels:
+            io.kompose.service: homekit
+        spec:
+          containers:
+            - image: eltonssilva/homekit:armv7_1.0
+              name: homekit
+              ports:
+                - containerPort: 51826
+                - containerPort: 5353
+              resources: {}
+              volumeMounts:
+                - mountPath: ./homekit/accessories:/home/HAP-NodeJS/accessories
+                  name: homekit-claim0
+          restartPolicy: Always
+          volumes:
+            - name: homekit-claim0
+              persistentVolumeClaim:
+                claimName: homekit-claim0
+    status: {}
+  - apiVersion: v1
+    kind: PersistentVolumeClaim
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: homekit-claim0
+      name: homekit-claim0
+    spec:
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 100Mi
+    status: {}
+  - apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      annotations:
+        kompose.cmd: kompose -f docker-compose.yml -o kubemanifest.yml convert
+        kompose.version: 1.26.0 (40646f47)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: mqttautodomo
+      name: mqttautodomo
+    spec:
+      replicas: 1
+      selector:
+        matchLabels:
+          io.kompose.service: mqttautodomo
+      strategy:
+        type: Recreate
+      template:
+        metadata:
+          annotations:
+            kompose.cmd: kompose -f docker-compose.yml -o kubemanifest.yml convert
+            kompose.version: 1.26.0 (40646f47)
+          creationTimestamp: null
+          labels:
+            io.kompose.service: mqttautodomo
+        spec:
+          containers:
+            - image: eclipse-mosquitto
+              name: mqttautodomo
+              ports:
+                - containerPort: 1883
+                - containerPort: 9001
+              resources: {}
+              volumeMounts:
+                - mountPath: ./mosquitto/config:/mosquitto/config
+                  name: mqttautodomo-claim0
+                - mountPath: ./mosquitto/data:/mosquitto/data
+                  name: mqttautodomo-claim1
+          restartPolicy: Always
+          volumes:
+            - name: mqttautodomo-claim0
+              persistentVolumeClaim:
+                claimName: mqttautodomo-claim0
+            - name: mqttautodomo-claim1
+              persistentVolumeClaim:
+                claimName: mqttautodomo-claim1
+    status: {}
+  - apiVersion: v1
+    kind: PersistentVolumeClaim
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: mqttautodomo-claim0
+      name: mqttautodomo-claim0
+    spec:
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 100Mi
+    status: {}
+  - apiVersion: v1
+    kind: PersistentVolumeClaim
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: mqttautodomo-claim1
+      name: mqttautodomo-claim1
+    spec:
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 100Mi
+    status: {}
+  - apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      annotations:
+        kompose.cmd: kompose -f docker-compose.yml -o kubemanifest.yml convert
+        kompose.version: 1.26.0 (40646f47)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: nodediverso
+      name: nodediverso
+    spec:
+      replicas: 1
+      selector:
+        matchLabels:
+          io.kompose.service: nodediverso
+      strategy:
+        type: Recreate
+      template:
+        metadata:
+          annotations:
+            kompose.cmd: kompose -f docker-compose.yml -o kubemanifest.yml convert
+            kompose.version: 1.26.0 (40646f47)
+          creationTimestamp: null
+          labels:
+            io.kompose.service: nodediverso
+        spec:
+          containers:
+            - image: eltonssilva/nodediverso:armv7_1.0
+              name: nodediverso
+              ports:
+                - containerPort: 8085
+                - containerPort: 4555
+              resources: {}
+              volumeMounts:
+                - mountPath: ./configs:/home/node/app/configs
+                  name: nodediverso-claim0
+          restartPolicy: Always
+          volumes:
+            - name: nodediverso-claim0
+              persistentVolumeClaim:
+                claimName: nodediverso-claim0
+    status: {}
+  - apiVersion: v1
+    kind: PersistentVolumeClaim
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: nodediverso-claim0
+      name: nodediverso-claim0
+    spec:
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 100Mi
+    status: {}
+  - apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      annotations:
+        kompose.cmd: kompose -f docker-compose.yml -o kubemanifest.yml convert
+        kompose.version: 1.26.0 (40646f47)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: noderedautodomo
+      name: noderedautodomo
+    spec:
+      replicas: 1
+      selector:
+        matchLabels:
+          io.kompose.service: noderedautodomo
+      strategy:
+        type: Recreate
+      template:
+        metadata:
+          annotations:
+            kompose.cmd: kompose -f docker-compose.yml -o kubemanifest.yml convert
+            kompose.version: 1.26.0 (40646f47)
+          creationTimestamp: null
+          labels:
+            io.kompose.service: noderedautodomo
+        spec:
+          containers:
+            - image: raymondmm/node-red
+              name: noderedautodomo
+              ports:
+                - containerPort: 1880
+                - containerPort: 8082
+                - containerPort: 8080
+              resources: {}
+              volumeMounts:
+                - mountPath: ./nodered/.node-red/data:/data
+                  name: noderedautodomo-claim0
+          restartPolicy: Always
+          volumes:
+            - name: noderedautodomo-claim0
+              persistentVolumeClaim:
+                claimName: noderedautodomo-claim0
+    status: {}
+  - apiVersion: v1
+    kind: PersistentVolumeClaim
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: noderedautodomo-claim0
+      name: noderedautodomo-claim0
+    spec:
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 100Mi
+    status: {}
+  - apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      annotations:
+        kompose.cmd: kompose -f docker-compose.yml -o kubemanifest.yml convert
+        kompose.version: 1.26.0 (40646f47)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: phpmyadmin
+      name: phpmyadmin
+    spec:
+      replicas: 1
+      selector:
+        matchLabels:
+          io.kompose.service: phpmyadmin
+      strategy: {}
+      template:
+        metadata:
+          annotations:
+            kompose.cmd: kompose -f docker-compose.yml -o kubemanifest.yml convert
+            kompose.version: 1.26.0 (40646f47)
+          creationTimestamp: null
+          labels:
+            io.kompose.service: phpmyadmin
+        spec:
+          containers:
+            - image: sk278/phpmyadmin-armhf:4.8.3
+              name: phpmyadmin
+              ports:
+                - containerPort: 80
+              resources: {}
+          restartPolicy: Always
+    status: {}
+  - apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      annotations:
+        kompose.cmd: kompose -f docker-compose.yml -o kubemanifest.yml convert
+        kompose.version: 1.26.0 (40646f47)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: supervisorio
+      name: supervisorio
+    spec:
+      replicas: 1
+      selector:
+        matchLabels:
+          io.kompose.service: supervisorio
+      strategy:
+        type: Recreate
+      template:
+        metadata:
+          annotations:
+            kompose.cmd: kompose -f docker-compose.yml -o kubemanifest.yml convert
+            kompose.version: 1.26.0 (40646f47)
+          creationTimestamp: null
+          labels:
+            io.kompose.service: supervisorio
+        spec:
+          containers:
+            - image: eltonssilva/supervisorio:armv7_1.0
+              name: supervisorio
+              ports:
+                - containerPort: 80
+                - containerPort: 443
+              resources: {}
+              volumeMounts:
+                - mountPath: ./php/www:/var/www/html/
+                  name: supervisorio-claim0
+                - mountPath: ./homekit/accessories:/home/pi/HAP-NodeJS/accessories/
+                  name: supervisorio-claim1
+                - mountPath: ./configs:/home/node/app/configs
+                  name: supervisorio-claim2
+                - mountPath: ./php/localcerts:/etc/ssl/localcerts/
+                  name: supervisorio-claim3
+                - mountPath: ./php/sites-available:/etc/apache2/sites-available/
+                  name: supervisorio-claim4
+                - mountPath: ./php/sites-enabled:/etc/apache2/sites-enabled/
+                  name: supervisorio-claim5
+                - mountPath: ./php/mods-enabled/ssl.conf:/etc/apache2/mods-enabled/ssl.conf
+                  name: supervisorio-claim6
+                - mountPath: ./php/mods-enabled/ssl.load:/etc/apache2/mods-enabled/ssl.load
+                  name: supervisorio-claim7
+                - mountPath: ./php/mods-enabled/socache_shmcb.load:/etc/apache2/mods-enabled/socache_shmcb.load
+                  name: supervisorio-claim8
+                - mountPath: ./mosquitto/config:/etc/mosquitto/config
+                  name: supervisorio-claim9
+                - mountPath: ./mosquitto/data:/etc/mosquitto/data
+                  name: supervisorio-claim10
+          restartPolicy: Always
+          volumes:
+            - name: supervisorio-claim0
+              persistentVolumeClaim:
+                claimName: supervisorio-claim0
+            - name: supervisorio-claim1
+              persistentVolumeClaim:
+                claimName: supervisorio-claim1
+            - name: supervisorio-claim2
+              persistentVolumeClaim:
+                claimName: supervisorio-claim2
+            - name: supervisorio-claim3
+              persistentVolumeClaim:
+                claimName: supervisorio-claim3
+            - name: supervisorio-claim4
+              persistentVolumeClaim:
+                claimName: supervisorio-claim4
+            - name: supervisorio-claim5
+              persistentVolumeClaim:
+                claimName: supervisorio-claim5
+            - name: supervisorio-claim6
+              persistentVolumeClaim:
+                claimName: supervisorio-claim6
+            - name: supervisorio-claim7
+              persistentVolumeClaim:
+                claimName: supervisorio-claim7
+            - name: supervisorio-claim8
+              persistentVolumeClaim:
+                claimName: supervisorio-claim8
+            - name: supervisorio-claim9
+              persistentVolumeClaim:
+                claimName: supervisorio-claim9
+            - name: supervisorio-claim10
+              persistentVolumeClaim:
+                claimName: supervisorio-claim10
+    status: {}
+  - apiVersion: v1
+    kind: PersistentVolumeClaim
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: supervisorio-claim0
+      name: supervisorio-claim0
+    spec:
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 100Mi
+    status: {}
+  - apiVersion: v1
+    kind: PersistentVolumeClaim
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: supervisorio-claim1
+      name: supervisorio-claim1
+    spec:
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 100Mi
+    status: {}
+  - apiVersion: v1
+    kind: PersistentVolumeClaim
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: supervisorio-claim2
+      name: supervisorio-claim2
+    spec:
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 100Mi
+    status: {}
+  - apiVersion: v1
+    kind: PersistentVolumeClaim
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: supervisorio-claim3
+      name: supervisorio-claim3
+    spec:
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 100Mi
+    status: {}
+  - apiVersion: v1
+    kind: PersistentVolumeClaim
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: supervisorio-claim4
+      name: supervisorio-claim4
+    spec:
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 100Mi
+    status: {}
+  - apiVersion: v1
+    kind: PersistentVolumeClaim
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: supervisorio-claim5
+      name: supervisorio-claim5
+    spec:
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 100Mi
+    status: {}
+  - apiVersion: v1
+    kind: PersistentVolumeClaim
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: supervisorio-claim6
+      name: supervisorio-claim6
+    spec:
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 100Mi
+    status: {}
+  - apiVersion: v1
+    kind: PersistentVolumeClaim
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: supervisorio-claim7
+      name: supervisorio-claim7
+    spec:
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 100Mi
+    status: {}
+  - apiVersion: v1
+    kind: PersistentVolumeClaim
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: supervisorio-claim8
+      name: supervisorio-claim8
+    spec:
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 100Mi
+    status: {}
+  - apiVersion: v1
+    kind: PersistentVolumeClaim
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: supervisorio-claim9
+      name: supervisorio-claim9
+    spec:
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 100Mi
+    status: {}
+  - apiVersion: v1
+    kind: PersistentVolumeClaim
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: supervisorio-claim10
+      name: supervisorio-claim10
+    spec:
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 100Mi
+    status: {}
+  - apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      annotations:
+        kompose.cmd: kompose -f docker-compose.yml -o kubemanifest.yml convert
+        kompose.version: 1.26.0 (40646f47)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: zigbee2mqtt
+      name: zigbee2mqtt
+    spec:
+      replicas: 1
+      selector:
+        matchLabels:
+          io.kompose.service: zigbee2mqtt
+      strategy:
+        type: Recreate
+      template:
+        metadata:
+          annotations:
+            kompose.cmd: kompose -f docker-compose.yml -o kubemanifest.yml convert
+            kompose.version: 1.26.0 (40646f47)
+          creationTimestamp: null
+          labels:
+            io.kompose.service: zigbee2mqtt
+        spec:
+          containers:
+            - env:
+                - name: TZ
+                  value: Europe/Amsterdam
+              image: koenkk/zigbee2mqtt:latest
+              name: zigbee2mqtt
+              resources: {}
+              securityContext:
+                privileged: true
+              volumeMounts:
+                - mountPath: ./zigbee2mqtt/data:/app/data
+                  name: zigbee2mqtt-claim0
+          restartPolicy: Always
+          volumes:
+            - name: zigbee2mqtt-claim0
+              persistentVolumeClaim:
+                claimName: zigbee2mqtt-claim0
+    status: {}
+  - apiVersion: v1
+    kind: PersistentVolumeClaim
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: zigbee2mqtt-claim0
+      name: zigbee2mqtt-claim0
+    spec:
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 100Mi
+    status: {}
+kind: List
+metadata: {}
+

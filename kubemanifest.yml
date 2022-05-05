@@ -1,12 +1,10 @@
 apiVersion: v1
+
 items:
+
   - apiVersion: v1
     kind: Service
     metadata:
-      annotations:
-        kompose.cmd: kompose -f docker-compose.yml -o kubemanifest.yml convert
-        kompose.version: 1.26.0 (40646f47)
-      creationTimestamp: null
       labels:
         io.kompose.service: db
       name: db
@@ -19,13 +17,10 @@ items:
         io.kompose.service: db
     status:
       loadBalancer: {}
+  
   - apiVersion: v1
     kind: Service
     metadata:
-      annotations:
-        kompose.cmd: kompose -f docker-compose.yml -o kubemanifest.yml convert
-        kompose.version: 1.26.0 (40646f47)
-      creationTimestamp: null
       labels:
         io.kompose.service: homekit
       name: homekit
@@ -41,13 +36,10 @@ items:
         io.kompose.service: homekit
     status:
       loadBalancer: {}
+  
   - apiVersion: v1
     kind: Service
     metadata:
-      annotations:
-        kompose.cmd: kompose -f docker-compose.yml -o kubemanifest.yml convert
-        kompose.version: 1.26.0 (40646f47)
-      creationTimestamp: null
       labels:
         io.kompose.service: mqttautodomo
       name: mqttautodomo
@@ -63,13 +55,10 @@ items:
         io.kompose.service: mqttautodomo
     status:
       loadBalancer: {}
+  
   - apiVersion: v1
     kind: Service
     metadata:
-      annotations:
-        kompose.cmd: kompose -f docker-compose.yml -o kubemanifest.yml convert
-        kompose.version: 1.26.0 (40646f47)
-      creationTimestamp: null
       labels:
         io.kompose.service: nodediverso
       name: nodediverso
@@ -85,13 +74,10 @@ items:
         io.kompose.service: nodediverso
     status:
       loadBalancer: {}
+  
   - apiVersion: v1
     kind: Service
     metadata:
-      annotations:
-        kompose.cmd: kompose -f docker-compose.yml -o kubemanifest.yml convert
-        kompose.version: 1.26.0 (40646f47)
-      creationTimestamp: null
       labels:
         io.kompose.service: noderedautodomo
       name: noderedautodomo
@@ -110,13 +96,10 @@ items:
         io.kompose.service: noderedautodomo
     status:
       loadBalancer: {}
+  
   - apiVersion: v1
     kind: Service
     metadata:
-      annotations:
-        kompose.cmd: kompose -f docker-compose.yml -o kubemanifest.yml convert
-        kompose.version: 1.26.0 (40646f47)
-      creationTimestamp: null
       labels:
         io.kompose.service: phpmyadmin
       name: phpmyadmin
@@ -129,13 +112,10 @@ items:
         io.kompose.service: phpmyadmin
     status:
       loadBalancer: {}
+  
   - apiVersion: v1
     kind: Service
     metadata:
-      annotations:
-        kompose.cmd: kompose -f docker-compose.yml -o kubemanifest.yml convert
-        kompose.version: 1.26.0 (40646f47)
-      creationTimestamp: null
       labels:
         io.kompose.service: supervisorio
       name: supervisorio
@@ -154,10 +134,6 @@ items:
   - apiVersion: apps/v1
     kind: Deployment
     metadata:
-      annotations:
-        kompose.cmd: kompose -f docker-compose.yml -o kubemanifest.yml convert
-        kompose.version: 1.26.0 (40646f47)
-      creationTimestamp: null
       labels:
         io.kompose.service: db
       name: db
@@ -170,10 +146,6 @@ items:
         type: Recreate
       template:
         metadata:
-          annotations:
-            kompose.cmd: kompose -f docker-compose.yml -o kubemanifest.yml convert
-            kompose.version: 1.26.0 (40646f47)
-          creationTimestamp: null
           labels:
             io.kompose.service: db
         spec:
@@ -201,10 +173,10 @@ items:
               persistentVolumeClaim:
                 claimName: db-claim0
     status: {}
+  
   - apiVersion: v1
     kind: PersistentVolumeClaim
     metadata:
-      creationTimestamp: null
       labels:
         io.kompose.service: db-claim0
       name: db-claim0
@@ -218,10 +190,6 @@ items:
   - apiVersion: apps/v1
     kind: Deployment
     metadata:
-      annotations:
-        kompose.cmd: kompose -f docker-compose.yml -o kubemanifest.yml convert
-        kompose.version: 1.26.0 (40646f47)
-      creationTimestamp: null
       labels:
         io.kompose.service: homegbridge
       name: homegbridge
@@ -233,10 +201,6 @@ items:
       strategy: {}
       template:
         metadata:
-          annotations:
-            kompose.cmd: kompose -f docker-compose.yml -o kubemanifest.yml convert
-            kompose.version: 1.26.0 (40646f47)
-          creationTimestamp: null
           labels:
             io.kompose.service: homegbridge
         spec:
@@ -246,13 +210,10 @@ items:
               resources: {}
           restartPolicy: Always
     status: {}
+    
   - apiVersion: apps/v1
     kind: Deployment
     metadata:
-      annotations:
-        kompose.cmd: kompose -f docker-compose.yml -o kubemanifest.yml convert
-        kompose.version: 1.26.0 (40646f47)
-      creationTimestamp: null
       labels:
         io.kompose.service: homekit
       name: homekit
@@ -265,10 +226,6 @@ items:
         type: Recreate
       template:
         metadata:
-          annotations:
-            kompose.cmd: kompose -f docker-compose.yml -o kubemanifest.yml convert
-            kompose.version: 1.26.0 (40646f47)
-          creationTimestamp: null
           labels:
             io.kompose.service: homekit
         spec:
@@ -288,10 +245,10 @@ items:
               persistentVolumeClaim:
                 claimName: homekit-claim0
     status: {}
+  
   - apiVersion: v1
     kind: PersistentVolumeClaim
     metadata:
-      creationTimestamp: null
       labels:
         io.kompose.service: homekit-claim0
       name: homekit-claim0
@@ -305,10 +262,6 @@ items:
   - apiVersion: apps/v1
     kind: Deployment
     metadata:
-      annotations:
-        kompose.cmd: kompose -f docker-compose.yml -o kubemanifest.yml convert
-        kompose.version: 1.26.0 (40646f47)
-      creationTimestamp: null
       labels:
         io.kompose.service: mqttautodomo
       name: mqttautodomo
@@ -321,10 +274,6 @@ items:
         type: Recreate
       template:
         metadata:
-          annotations:
-            kompose.cmd: kompose -f docker-compose.yml -o kubemanifest.yml convert
-            kompose.version: 1.26.0 (40646f47)
-          creationTimestamp: null
           labels:
             io.kompose.service: mqttautodomo
         spec:
@@ -349,10 +298,10 @@ items:
               persistentVolumeClaim:
                 claimName: mqttautodomo-claim1
     status: {}
+  
   - apiVersion: v1
     kind: PersistentVolumeClaim
     metadata:
-      creationTimestamp: null
       labels:
         io.kompose.service: mqttautodomo-claim0
       name: mqttautodomo-claim0
@@ -363,10 +312,10 @@ items:
         requests:
           storage: 100Mi
     status: {}
+  
   - apiVersion: v1
     kind: PersistentVolumeClaim
     metadata:
-      creationTimestamp: null
       labels:
         io.kompose.service: mqttautodomo-claim1
       name: mqttautodomo-claim1
@@ -380,10 +329,6 @@ items:
   - apiVersion: apps/v1
     kind: Deployment
     metadata:
-      annotations:
-        kompose.cmd: kompose -f docker-compose.yml -o kubemanifest.yml convert
-        kompose.version: 1.26.0 (40646f47)
-      creationTimestamp: null
       labels:
         io.kompose.service: nodediverso
       name: nodediverso
@@ -396,10 +341,6 @@ items:
         type: Recreate
       template:
         metadata:
-          annotations:
-            kompose.cmd: kompose -f docker-compose.yml -o kubemanifest.yml convert
-            kompose.version: 1.26.0 (40646f47)
-          creationTimestamp: null
           labels:
             io.kompose.service: nodediverso
         spec:
@@ -419,10 +360,10 @@ items:
               persistentVolumeClaim:
                 claimName: nodediverso-claim0
     status: {}
+  
   - apiVersion: v1
     kind: PersistentVolumeClaim
     metadata:
-      creationTimestamp: null
       labels:
         io.kompose.service: nodediverso-claim0
       name: nodediverso-claim0
@@ -436,10 +377,6 @@ items:
   - apiVersion: apps/v1
     kind: Deployment
     metadata:
-      annotations:
-        kompose.cmd: kompose -f docker-compose.yml -o kubemanifest.yml convert
-        kompose.version: 1.26.0 (40646f47)
-      creationTimestamp: null
       labels:
         io.kompose.service: noderedautodomo
       name: noderedautodomo
@@ -452,10 +389,6 @@ items:
         type: Recreate
       template:
         metadata:
-          annotations:
-            kompose.cmd: kompose -f docker-compose.yml -o kubemanifest.yml convert
-            kompose.version: 1.26.0 (40646f47)
-          creationTimestamp: null
           labels:
             io.kompose.service: noderedautodomo
         spec:
@@ -476,10 +409,10 @@ items:
               persistentVolumeClaim:
                 claimName: noderedautodomo-claim0
     status: {}
+  
   - apiVersion: v1
     kind: PersistentVolumeClaim
     metadata:
-      creationTimestamp: null
       labels:
         io.kompose.service: noderedautodomo-claim0
       name: noderedautodomo-claim0
@@ -493,10 +426,6 @@ items:
   - apiVersion: apps/v1
     kind: Deployment
     metadata:
-      annotations:
-        kompose.cmd: kompose -f docker-compose.yml -o kubemanifest.yml convert
-        kompose.version: 1.26.0 (40646f47)
-      creationTimestamp: null
       labels:
         io.kompose.service: phpmyadmin
       name: phpmyadmin
@@ -508,10 +437,6 @@ items:
       strategy: {}
       template:
         metadata:
-          annotations:
-            kompose.cmd: kompose -f docker-compose.yml -o kubemanifest.yml convert
-            kompose.version: 1.26.0 (40646f47)
-          creationTimestamp: null
           labels:
             io.kompose.service: phpmyadmin
         spec:
@@ -526,10 +451,6 @@ items:
   - apiVersion: apps/v1
     kind: Deployment
     metadata:
-      annotations:
-        kompose.cmd: kompose -f docker-compose.yml -o kubemanifest.yml convert
-        kompose.version: 1.26.0 (40646f47)
-      creationTimestamp: null
       labels:
         io.kompose.service: supervisorio
       name: supervisorio
@@ -542,10 +463,6 @@ items:
         type: Recreate
       template:
         metadata:
-          annotations:
-            kompose.cmd: kompose -f docker-compose.yml -o kubemanifest.yml convert
-            kompose.version: 1.26.0 (40646f47)
-          creationTimestamp: null
           labels:
             io.kompose.service: supervisorio
         spec:
@@ -615,10 +532,10 @@ items:
               persistentVolumeClaim:
                 claimName: supervisorio-claim10
     status: {}
+  
   - apiVersion: v1
     kind: PersistentVolumeClaim
     metadata:
-      creationTimestamp: null
       labels:
         io.kompose.service: supervisorio-claim0
       name: supervisorio-claim0
@@ -629,10 +546,10 @@ items:
         requests:
           storage: 100Mi
     status: {}
+  
   - apiVersion: v1
     kind: PersistentVolumeClaim
     metadata:
-      creationTimestamp: null
       labels:
         io.kompose.service: supervisorio-claim1
       name: supervisorio-claim1
@@ -643,10 +560,10 @@ items:
         requests:
           storage: 100Mi
     status: {}
+  
   - apiVersion: v1
     kind: PersistentVolumeClaim
     metadata:
-      creationTimestamp: null
       labels:
         io.kompose.service: supervisorio-claim2
       name: supervisorio-claim2
@@ -657,10 +574,10 @@ items:
         requests:
           storage: 100Mi
     status: {}
+  
   - apiVersion: v1
     kind: PersistentVolumeClaim
     metadata:
-      creationTimestamp: null
       labels:
         io.kompose.service: supervisorio-claim3
       name: supervisorio-claim3
@@ -671,10 +588,10 @@ items:
         requests:
           storage: 100Mi
     status: {}
+  
   - apiVersion: v1
     kind: PersistentVolumeClaim
     metadata:
-      creationTimestamp: null
       labels:
         io.kompose.service: supervisorio-claim4
       name: supervisorio-claim4
@@ -685,10 +602,10 @@ items:
         requests:
           storage: 100Mi
     status: {}
+  
   - apiVersion: v1
     kind: PersistentVolumeClaim
     metadata:
-      creationTimestamp: null
       labels:
         io.kompose.service: supervisorio-claim5
       name: supervisorio-claim5
@@ -699,10 +616,10 @@ items:
         requests:
           storage: 100Mi
     status: {}
+  
   - apiVersion: v1
     kind: PersistentVolumeClaim
     metadata:
-      creationTimestamp: null
       labels:
         io.kompose.service: supervisorio-claim6
       name: supervisorio-claim6
@@ -713,10 +630,10 @@ items:
         requests:
           storage: 100Mi
     status: {}
+  
   - apiVersion: v1
     kind: PersistentVolumeClaim
     metadata:
-      creationTimestamp: null
       labels:
         io.kompose.service: supervisorio-claim7
       name: supervisorio-claim7
@@ -727,10 +644,10 @@ items:
         requests:
           storage: 100Mi
     status: {}
+  
   - apiVersion: v1
     kind: PersistentVolumeClaim
     metadata:
-      creationTimestamp: null
       labels:
         io.kompose.service: supervisorio-claim8
       name: supervisorio-claim8
@@ -741,10 +658,10 @@ items:
         requests:
           storage: 100Mi
     status: {}
+  
   - apiVersion: v1
     kind: PersistentVolumeClaim
     metadata:
-      creationTimestamp: null
       labels:
         io.kompose.service: supervisorio-claim9
       name: supervisorio-claim9
@@ -755,10 +672,10 @@ items:
         requests:
           storage: 100Mi
     status: {}
+  
   - apiVersion: v1
     kind: PersistentVolumeClaim
     metadata:
-      creationTimestamp: null
       labels:
         io.kompose.service: supervisorio-claim10
       name: supervisorio-claim10
@@ -772,10 +689,6 @@ items:
   - apiVersion: apps/v1
     kind: Deployment
     metadata:
-      annotations:
-        kompose.cmd: kompose -f docker-compose.yml -o kubemanifest.yml convert
-        kompose.version: 1.26.0 (40646f47)
-      creationTimestamp: null
       labels:
         io.kompose.service: zigbee2mqtt
       name: zigbee2mqtt
@@ -788,10 +701,6 @@ items:
         type: Recreate
       template:
         metadata:
-          annotations:
-            kompose.cmd: kompose -f docker-compose.yml -o kubemanifest.yml convert
-            kompose.version: 1.26.0 (40646f47)
-          creationTimestamp: null
           labels:
             io.kompose.service: zigbee2mqtt
         spec:
@@ -813,10 +722,10 @@ items:
               persistentVolumeClaim:
                 claimName: zigbee2mqtt-claim0
     status: {}
+  
   - apiVersion: v1
     kind: PersistentVolumeClaim
     metadata:
-      creationTimestamp: null
       labels:
         io.kompose.service: zigbee2mqtt-claim0
       name: zigbee2mqtt-claim0
@@ -827,6 +736,8 @@ items:
         requests:
           storage: 100Mi
     status: {}
+
 kind: List
+
 metadata: {}
 

@@ -129,6 +129,7 @@ items:
           targetPort: 443
       selector:
         io.kompose.service: supervisorio
+      type: LoadBalancer
     status:
       loadBalancer: {}
   

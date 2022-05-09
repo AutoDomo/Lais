@@ -53,6 +53,7 @@ items:
           targetPort: 9001
       selector:
         io.kompose.service: mqttautodomo
+      type: LoadBalancer
     status:
       loadBalancer: {}
   

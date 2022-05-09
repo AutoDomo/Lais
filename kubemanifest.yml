@@ -151,10 +151,6 @@ items:
         type: Recreate
       template:
         metadata:
-          annotations:
-            kompose.cmd: kompose -f docker-compose.yml -o kubemanifest.yml convert --volumes hostPath
-            kompose.version: 1.26.0 (40646f47)
-  
           labels:
             io.kompose.service: db
         spec:
@@ -197,10 +193,6 @@ items:
       strategy: {}
       template:
         metadata:
-          annotations:
-            kompose.cmd: kompose -f docker-compose.yml -o kubemanifest.yml convert --volumes hostPath
-            kompose.version: 1.26.0 (40646f47)
-  
           labels:
             io.kompose.service: homegbridge
         spec:
@@ -226,10 +218,6 @@ items:
         type: Recreate
       template:
         metadata:
-          annotations:
-            kompose.cmd: kompose -f docker-compose.yml -o kubemanifest.yml convert --volumes hostPath
-            kompose.version: 1.26.0 (40646f47)
-  
           labels:
             io.kompose.service: homekit
         spec:
@@ -265,10 +253,6 @@ items:
         type: Recreate
       template:
         metadata:
-          annotations:
-            kompose.cmd: kompose -f docker-compose.yml -o kubemanifest.yml convert --volumes hostPath
-            kompose.version: 1.26.0 (40646f47)
-  
           labels:
             io.kompose.service: mqttautodomo
         spec:
@@ -309,10 +293,6 @@ items:
         type: Recreate
       template:
         metadata:
-          annotations:
-            kompose.cmd: kompose -f docker-compose.yml -o kubemanifest.yml convert --volumes hostPath
-            kompose.version: 1.26.0 (40646f47)
-  
           labels:
             io.kompose.service: nodediverso
         spec:
@@ -348,10 +328,6 @@ items:
         type: Recreate
       template:
         metadata:
-          annotations:
-            kompose.cmd: kompose -f docker-compose.yml -o kubemanifest.yml convert --volumes hostPath
-            kompose.version: 1.26.0 (40646f47)
-  
           labels:
             io.kompose.service: noderedautodomo
         spec:
@@ -387,10 +363,6 @@ items:
       strategy: {}
       template:
         metadata:
-          annotations:
-            kompose.cmd: kompose -f docker-compose.yml -o kubemanifest.yml convert --volumes hostPath
-            kompose.version: 1.26.0 (40646f47)
-  
           labels:
             io.kompose.service: phpmyadmin
         spec:
@@ -418,10 +390,6 @@ items:
         type: Recreate
       template:
         metadata:
-          annotations:
-            kompose.cmd: kompose -f docker-compose.yml -o kubemanifest.yml convert --volumes hostPath
-            kompose.version: 1.26.0 (40646f47)
-  
           labels:
             io.kompose.service: supervisorio
         spec:
@@ -507,10 +475,6 @@ items:
         type: Recreate
       template:
         metadata:
-          annotations:
-            kompose.cmd: kompose -f docker-compose.yml -o kubemanifest.yml convert --volumes hostPath
-            kompose.version: 1.26.0 (40646f47)
-  
           labels:
             io.kompose.service: zigbee2mqtt
         spec:

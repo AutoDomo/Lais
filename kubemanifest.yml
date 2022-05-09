@@ -94,6 +94,7 @@ items:
           targetPort: 8080
       selector:
         io.kompose.service: noderedautodomo
+      type: LoadBalancer
     status:
       loadBalancer: {}
   

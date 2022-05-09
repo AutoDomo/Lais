@@ -110,6 +110,7 @@ items:
           targetPort: 80
       selector:
         io.kompose.service: phpmyadmin
+      type: LoadBalancer
     status:
       loadBalancer: {}
   

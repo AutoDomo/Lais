@@ -6,8 +6,8 @@ services:
     image: eclipse-mosquitto
     restart: always
     volumes:
-      - laisdb-data:/mosquitto/config/mosquitto/config
-      - laisdb-data:/mosquitto/data/mosquitto/data
+      - laisdb-data:/_data/lais/mosquitto/config/mosquitto/config
+      - laisdb-data:/_data/lais/mosquitto/data/mosquitto/data
     ports:
       - 1883:1883
       - 9001:9001
@@ -20,7 +20,7 @@ services:
       - 8082:8082
       - 8080:8080
     volumes:
-      - laisdb-data:/nodered/.node-red/data/data
+      - laisdb-data:/_data/lais/nodered/.node-red/data/data
       
   db:
     image: biarms/mysql
@@ -31,7 +31,7 @@ services:
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     volumes:
-      - laisdb-data:/mariadb/docker-entrypoint-initdb.d
+      - laisdb-data:/_data/lais/mariadb/docker-entrypoint-initdb.d
     ports:
       - 3306:3306
 
@@ -53,7 +53,7 @@ services:
     image: eltonssilva/nodediverso:armv7_1.0
     restart: always
     volumes:
-      - laisdb-data:/configs/home/node/app/configs
+      - laisdb-data:/_data/lais/configs/home/node/app/configs
     depends_on:
       - db
     ports:
@@ -63,38 +63,36 @@ services:
   supervisorio:
     image: eltonssilva/supervisorio:armv7_1.0
     restart: always
-
     ports:
       - 80:80
       - 443:443
     volumes:
-      - laisdb-data:/php/www/var/www/html/
-      - laisdb-data:/homekit/accessories/home/pi/HAP-NodeJS/accessories/
-      - laisdb-data:/configs/home/node/app/configs
-      - laisdb-data:/php/localcerts/etc/ssl/localcerts/
-      - laisdb-data:/php/sites-available/etc/apache2/sites-available/
-      - laisdb-data:/php/sites-enabled/etc/apache2/sites-enabled/
-      - laisdb-data:/php/mods-enabled/ssl.conf/etc/apache2/mods-enabled/ssl.conf
-      - laisdb-data:/php/mods-enabled/ssl.load/etc/apache2/mods-enabled/ssl.load
-      - laisdb-data:/php/mods-enabled/socache_shmcb.load/etc/apache2/mods-enabled/socache_shmcb.load
-      - laisdb-data:/mosquitto/config/etc/mosquitto/config
-      - laisdb-data:/mosquitto/data/etc/mosquitto/data
+      - laisdb-data:/_data/lais/php/www/var/www/html/
+      - laisdb-data:/_data/lais/homekit/accessories/home/pi/HAP-NodeJS/accessories/
+      - laisdb-data:/_data/lais/configs/home/node/app/configs
+      - laisdb-data:/_data/lais/php/localcerts/etc/ssl/localcerts/
+      - laisdb-data:/_data/lais/php/sites-available/etc/apache2/sites-available/
+      - laisdb-data:/_data/lais/php/sites-enabled/etc/apache2/sites-enabled/
+      - laisdb-data:/_data/lais/php/mods-enabled/ssl.conf/etc/apache2/mods-enabled/ssl.conf
+      - laisdb-data:/_data/lais/php/mods-enabled/ssl.load/etc/apache2/mods-enabled/ssl.load
+      - laisdb-data:/_data/lais/php/mods-enabled/socache_shmcb.load/etc/apache2/mods-enabled/socache_shmcb.load
+      - laisdb-data:/_data/lais/mosquitto/config/etc/mosquitto/config
+      - laisdb-data:/_data/lais/mosquitto/data/etc/mosquitto/data
     
   homekit:
     image: eltonssilva/homekit:armv7_1.0
     restart: always
     network_mode: host
-
     ports:
       - 51826:51826
       - 5353:5353
     volumes:
-      - laisdb-data:/homekit/accessories/home/HAP-NodeJS/accessories
+      - laisdb-data:/_data/lais/homekit/accessories/home/HAP-NodeJS/accessories
 
   zigbee2mqtt:
     image: koenkk/zigbee2mqtt:latest
     volumes:
-      - laisdb-data:/zigbee2mqtt/data/app/data
+      - laisdb-data:/_data/lais/zigbee2mqtt/data/app/data
     privileged: true
     devices:
       - /dev:/dev

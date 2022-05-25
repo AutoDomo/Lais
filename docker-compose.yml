@@ -2,7 +2,6 @@ version: '2'
     
 services:
   mqttautodomo:
-    container_name: mqttautodomo
     image: eclipse-mosquitto
     restart: always
     volumes:
@@ -13,7 +12,6 @@ services:
       - 9001:9001
 
   noderedautodomo:
-    container_name: noderedautodomo
     image: raymondmm/node-red
     restart: always
     ports:
@@ -24,7 +22,6 @@ services:
       - ./nodered/.node-red/data:/data
       
   db:
-    container_name: db
     image: biarms/mysql
     restart: always
     environment:
@@ -38,7 +35,6 @@ services:
       - 3306:3306
 
   phpmyadmin:
-    container_name: phpmyadmin
     image: sk278/phpmyadmin-armhf:4.8.3
     restart: always
     ports:
@@ -47,14 +43,12 @@ services:
       - db
 
   homeGbridge:
-    container_name: homeGbridge
     image: eltonssilva/gbridgeconnect:armv7_1.1
     restart: always
     depends_on:
       - db
 
   nodediverso:
-    container_name: nodediverso
     image: eltonssilva/nodediverso:armv7_1.0
     restart: always
     volumes:
@@ -66,7 +60,6 @@ services:
       - 4555:4555
 
   supervisorio:
-    container_name: supervisorio
     image: eltonssilva/supervisorio:armv7_1.0
     restart: always
 
@@ -87,7 +80,6 @@ services:
       - ./mosquitto/data:/etc/mosquitto/data
     
   homekit:
-    container_name: homekit
     image: eltonssilva/homekit:armv7_1.0
     restart: always
     network_mode: host
@@ -99,7 +91,6 @@ services:
       - ./homekit/accessories:/home/HAP-NodeJS/accessories
 
   zigbee2mqtt:
-    container_name: zigbee2mqtt
     image: koenkk/zigbee2mqtt:latest
     volumes:
       - ./zigbee2mqtt/data:/app/data

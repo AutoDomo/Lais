@@ -1,4 +1,4 @@
-FROM node:slim
+FROM node
 WORKDIR /app
 COPY ./app .
 COPY ./entrypoint.sh .

@@ -10,7 +10,14 @@ services:
   
   server:
     container_name: server
-    image: eltonssilva/lais-server
+    image: eltonssilva/autodomo-lais-server
     restart: always
     ports:
       - 8000:3000
+
+  db:
+    container_name: db
+    image: mongodb
+    restart: always
+    ports:
+      - 27017:27017

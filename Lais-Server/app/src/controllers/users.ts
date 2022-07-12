@@ -1,86 +1,59 @@
 import { Context, Next } from 'koa';
 
-import * as Realm from 'realm';
+import mongoose from 'mongoose';
+import usersSchema from '../schemas/usersSchema';
 
 import * as Argon2 from 'argon2';
 
-const usersSchema = {
-  name: 'Users',
-  properties: {
-    _id: 'string',
-    name: 'string',
-    password: 'string',
-    created_at: 'int',
-    updated_at: 'int',
-  },
-  primaryKey: '_id',
-}
-
-const initializeRealm = async () => await Realm.open({
-  path: 'server.realm',
-  schema: [usersSchema],
-  deleteRealmIfMigrationNeeded: true
-});
+const verifyUser = (nameUser: string) => mongoose.model("Users", usersSchema).findOne({ name: nameUser });
+const verifyPassword = (passwordCrypted: string, passwordUncrypted: string) => Argon2.verify(passwordCrypted, passwordUncrypted)
 
 const signIn = async (ctx: Context, next: Next) => {
-  const realm = await initializeRealm();
-
   const { body }: any = ctx.request;
-  const { name, password } = body;
+  const { name, password }: any = body;
 
-  const user: Object = realm.objects("Users").filtered(`name = '${name}'`);
+  const userVerified = await verifyUser(name);
 
-  if (name !== user[0].name) {
-   ctx.status = 404;
-   ctx.body = { status: 'user not found' } 
+  if (!userVerified) {
+    return ctx.status = 404, ctx.body = { status: 'user not found' }
   }
 
-  const verifyPassword = await Argon2.verify(user[0].password, password);
+  const passwordVerified = await verifyPassword(userVerified.password, password);
 
-  if (verifyPassword) {
-    ctx.status = 200;
-    ctx.body = { status: 'authenticated' }
-  } else {
-    ctx.status = 404;
-    ctx.body = { status: 'password wrong' }
+  if (!passwordVerified) {
+    return ctx.status = 404, ctx.body = { status: 'password wrong' }
   }
+
+  ctx.status = 200;
+  ctx.body = { status: 'authenticated' }
 
   await next();
 };
 
 const getUsers = async (ctx: Context, next: Next) => {
-  const realm = await initializeRealm();
-
-  const users = realm.objects('Users');
+  const usersModel = await mongoose.model("Users", usersSchema).find({});
 
   ctx.status = 200;
-  ctx.body = users;
+  ctx.body = usersModel;
 
   await next();
 };
 
 const addUser = async (ctx: Context, next: Next) => {
-  const realm = await initializeRealm();
-
   const { body }: any = ctx.request;
   const { name, password } = body;
 
-  const nameWithID = Buffer.from(name).toString('base64');
-
   const passwordWithHash = await Argon2.hash(password);
 
-  realm.write(() => {
-    realm.create('Users', {
-      _id: nameWithID,
-      name,
-      password: passwordWithHash,
-      created_at: new Date().getTime(),
-      updated_at: new Date().getTime()
-    });
+  const userModel = await mongoose.model("Users", usersSchema).create({
+    name,
+    password: passwordWithHash,
+    created_at: new Date().getTime(),
+    updated_at: new Date().getTime()
   });
 
   ctx.status = 200;
-  ctx.body = { name };
+  ctx.body = { userModel };
   
   await next();
 };
@@ -88,14 +61,12 @@ const addUser = async (ctx: Context, next: Next) => {
 const deleteUser = async (ctx: Context, next: Next) => {
   const { _id } = ctx.params;
 
-  const realm = await initializeRealm();
-
-  realm.write(() => {
-    realm.delete(realm.objectForPrimaryKey('Users', _id));
+  const userModel = await mongoose.model("Users", usersSchema).deleteOne({
+    _id
   });
 
   ctx.status = 200;
-  ctx.body = { _id };
+  ctx.body = { userModel };
   
   await next();
 };

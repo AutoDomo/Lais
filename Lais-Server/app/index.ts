@@ -2,7 +2,10 @@ const Koa = require('koa');
 const bodyParser = require('koa-bodyparser');
 const logger = require('koa-logger');
 
+import mongoose from 'mongoose';
 import routes from './src/routes';
+
+mongoose.connect('mongodb://localhost:27017/users');
 
 const app = new Koa();
 

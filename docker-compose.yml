@@ -10,7 +10,7 @@ services:
   
   server:
     container_name: server
-    image: eltonssilva/autodomo-lais-server
+    image: eltonssilva/lais-server
     restart: always
     ports:
       - 8000:3000

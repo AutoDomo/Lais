@@ -1,5 +1,9 @@
 version: "2"
 
+networks:
+  frontend:
+  backend:
+
 services:
   supervisor:
     container_name: supervisor
@@ -9,6 +13,8 @@ services:
       - 80:3000
     depends_on:
       - server
+    networks:
+      - frontend
   
   server:
     container_name: server
@@ -18,6 +24,9 @@ services:
       - 8000:3000
     depends_on:
       - db
+    networks:
+       - frontend
+       - backend
 
   db:
     container_name: db
@@ -25,3 +34,5 @@ services:
     restart: always
     ports:
       - 27017:27017
+    networks:
+      - backend

@@ -7,6 +7,8 @@ services:
     restart: always
     ports:
       - 80:3000
+    depends_on:
+      - server
   
   server:
     container_name: server
@@ -14,6 +16,8 @@ services:
     restart: always
     ports:
       - 8000:3000
+    depends_on:
+      - db
 
   db:
     container_name: db

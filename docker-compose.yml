@@ -17,7 +17,7 @@ services:
 
   db:
     container_name: db
-    image: arm64/mongo
+    image: arm64v8/mongo
     restart: always
     ports:
       - 27017:27017

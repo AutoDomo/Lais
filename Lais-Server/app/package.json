@@ -6,6 +6,9 @@
   "scripts": {
     "start": "ts-node-dev --respawn --transpile-only index.ts"
   },
+  "config": {
+    "unsafe-perm": true
+  },
   "dependencies": {
     "koa": "^2.13.4",
     "koa-bodyparser": "^4.3.0",

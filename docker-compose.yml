@@ -30,7 +30,7 @@ services:
 
   db:
     container_name: db
-    image: eltonssilva/lais-db
+    image: arm64v8/mongo
     restart: always
     ports:
       - 27017:27017

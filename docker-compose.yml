@@ -21,7 +21,7 @@ services:
     image: eltonssilva/lais-server
     restart: always
     ports:
-      - 8000:3000
+      - 8080:3000
     depends_on:
       - db
     networks:

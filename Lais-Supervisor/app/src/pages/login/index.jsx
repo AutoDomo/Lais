@@ -3,6 +3,9 @@ import * as styled from "./styles";
 import { useDispatch } from "react-redux";
 import { loggedAction } from "../../redux/actions/loggedAction";
 
+import axios from "axios";
+import { useEffect } from "react";
+
 export default function Login() {
 
     const dispatch = useDispatch();
@@ -10,6 +13,31 @@ export default function Login() {
     const handleLogin = () => {
         dispatch(loggedAction(true));
     };
+
+    /* useEffect(() => {
+        axios.get('http:server:8080/users').then((res) => {
+            console.log(res);
+        })
+    }); */
+
+    useEffect(() => {
+                axios.get('http://server:8080/users')
+        .then(function (response) {
+            // manipula o sucesso da requisição
+            console.log(response);
+        })
+        .catch(function (error) {
+            // manipula erros da requisição
+            console.error(error);
+        })
+        .then(function () {
+            // sempre será executado
+        });
+    }, [])
+
+    useEffect(() => {
+        console.log("teste 123")
+    }, [])
 
     return (
         <styled.Background>

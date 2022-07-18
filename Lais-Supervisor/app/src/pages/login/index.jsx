@@ -15,7 +15,6 @@ export default function Login() {
     };
 
     useEffect(() => {
-        console.log('Buscando.....');
         axios.get('http://server:3000/users')
         .then(function (response) {
             // manipula o sucesso da requisição

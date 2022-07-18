@@ -10,18 +10,16 @@ export default function Login() {
 
     const dispatch = useDispatch();
 
-    const handleLogin = () => {
-        dispatch(loggedAction(true));
+    const handleLogin = async () => {
+        /* dispatch(loggedAction(true)); */
+
+        const resp = await axios.get('http://server:3000/users');
+
+        console.log('resp: ', resp);
     };
 
-    /* useEffect(() => {
-        axios.get('http:server:8080/users').then((res) => {
-            console.log(res);
-        })
-    }); */
-
     useEffect(() => {
-                axios.get('http://server:8080/users')
+                axios.get('http://server:3000/users')
         .then(function (response) {
             // manipula o sucesso da requisição
             console.log(response);

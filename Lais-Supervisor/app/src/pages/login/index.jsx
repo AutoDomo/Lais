@@ -1,33 +1,25 @@
 import * as styled from "./styles";
 
-import { useDispatch } from "react-redux";
-import { loggedAction } from "../../redux/actions/loggedAction";
+import axios from 'axios';
 
-import axios from "axios";
-import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 
 export default function Login() {
 
     const dispatch = useDispatch();
 
     const handleLogin = async () => {
-        dispatch(loggedAction(true));
-    };
+        /* dispatch(loggedAction(true)); */
 
-    useEffect(() => {
-        axios.get('http://server:3000/users')
-        .then(function (response) {
-            // manipula o sucesso da requisição
-            console.log(response);
-        })
-        .catch(function (error) {
-            // manipula erros da requisição
-            console.error(error);
-        })
-        .then(function () {
-            // sempre será executado
-        });
-    }, [])
+        const res = await fetch('http://nginx:3000/users');
+        const json = await res.json();
+
+        console.log('json: ', json);
+
+        const resTwo = await axios.get('http://nginx:3000/users');
+
+        console.log('resTwo: ', resTwo);
+    };
 
     return (
         <styled.Background>

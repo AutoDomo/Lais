@@ -11,12 +11,7 @@ export default function Login() {
     const handleLogin = async () => {
         /* dispatch(loggedAction(true)); */
 
-        const res = await fetch('http://nginx:3000/users');
-        const json = await res.json();
-
-        console.log('json: ', json);
-
-        const resTwo = await axios.get('http://nginx:3000/users');
+        const resTwo = await axios.get('http://nginx:8181/users');
 
         console.log('resTwo: ', resTwo);
     };

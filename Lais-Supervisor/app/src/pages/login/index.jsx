@@ -11,7 +11,13 @@ export default function Login() {
     const handleLogin = async () => {
         /* dispatch(loggedAction(true)); */
 
-        const resTwo = await axios.get('http://nginx:8181/users');
+        const resTwo = await axios({
+            method: 'get',
+            url: 'http://localhost:8080/users',
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+            }
+        });
 
         console.log('resTwo: ', resTwo);
     };

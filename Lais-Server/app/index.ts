@@ -1,5 +1,6 @@
 const Koa = require('koa');
 const bodyParser = require('koa-bodyparser');
+const cors = require('@koa/cors');
 const logger = require('koa-logger');
 
 import mongoose from 'mongoose';
@@ -10,6 +11,7 @@ mongoose.connect('mongodb://db:27017/users');
 const app = new Koa();
 
 app.use(bodyParser());
+app.use(cors());
 app.use(logger());
 app.use(routes.routes());
 app.use(routes.allowedMethods());

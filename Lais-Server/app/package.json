@@ -6,6 +6,7 @@
     "start": "ts-node-dev --respawn --transpile-only index.ts"
   },
   "dependencies": {
+    "@koa/cors": "^3.3.0",
     "argon2": "^0.28.7",
     "koa": "^2.13.4",
     "koa-bodyparser": "^4.3.0",

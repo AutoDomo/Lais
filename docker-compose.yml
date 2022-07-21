@@ -7,8 +7,7 @@ networks:
 services:
   supervisor:
     container_name: supervisor
-    build:
-      context: ./Lais-Supervisor/
+    image: eltonssilva/lais-supervisor
     restart: always
     ports:
     - 80:3000
@@ -16,23 +15,10 @@ services:
       - server
     networks:
       - frontend
-  
-  nginx:
-    container_name: nginx
-    build:
-      context: ./Lais-Nginx/
-    restart: always
-    ports:
-      - 8181:3000
-    depends_on:
-      - server
-    networks:
-      - frontend
 
   server:
     container_name: server
-    build:
-      context: ./Lais-Server/
+    image: eltonssilva/lais-server
     restart: always
     ports:
       - 8080:3000

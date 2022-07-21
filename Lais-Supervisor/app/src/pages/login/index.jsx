@@ -8,18 +8,22 @@ export default function Login() {
 
     const dispatch = useDispatch();
 
+    const instanceSignIn = axios.create({
+        baseURL: 'http://localhost:8080',
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+        },
+    });
+
     const handleLogin = async () => {
         /* dispatch(loggedAction(true)); */
 
-        const resTwo = await axios({
-            method: 'get',
-            url: 'http://localhost:8080/users',
-            headers: {
-                'Access-Control-Allow-Origin': '*',
-            }
+        const users = await instanceSignIn.put('/users', {
+            name: 'lais',
+            password: 'comida05'
         });
 
-        console.log('resTwo: ', resTwo);
+        console.log('users: ', users);
     };
 
     return (

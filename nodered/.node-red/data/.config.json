@@ -1265,9 +1265,10 @@
      "view-show-grid": true
     }
    },
-   "menu-deploymenu-item-node": true,
+   "menu-deploymenu-item-node": false,
    "menu-deploymenu-item-full": false,
-   "menu-menu-item-sidebar": true
+   "menu-menu-item-sidebar": true,
+   "menu-deploymenu-item-flow": true
   }
  }
 }

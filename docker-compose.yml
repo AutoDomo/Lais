@@ -23,9 +23,22 @@ services:
     image: raymondmm/node-red
     restart: always
     ports:
-      - 1880:1880
-      - 8082:8082
-      - 8080:8080
+    - protocol: tcp
+      published: 1880
+      target: 1880
+    - protocol: tcp
+      published: 8082
+      target: 8082
+    - protocol: tcp
+      published: 8080
+      target: 8080
+    - protocol: udp
+      published: 30303
+      target: 30303
+    - protocol: udp
+      published: 30304
+      target: 30304
+
     volumes:
       - ./nodered/.node-red/data:/data
       
@@ -52,24 +65,24 @@ services:
     depends_on:
       - db
 
-  homeGbridge:
-    container_name: homeGbridge
-    image: eltonssilva/gbridgeconnect:armv7_1.1
-    restart: always
-    depends_on:
-      - db
+  # homeGbridge:
+  #   container_name: homeGbridge
+  #   image: eltonssilva/gbridgeconnect:armv7_1.1
+  #   restart: always
+  #   depends_on:
+  #     - db
 
-  nodediverso:
-    container_name: nodediverso
-    image: eltonssilva/nodediverso:armv7_1.0
-    restart: always
-    volumes:
-      - ./configs:/home/node/app/configs
-    depends_on:
-      - db
-    ports:
-      - 8085:8085
-      - 4555:4555
+  # nodediverso:
+  #   container_name: nodediverso
+  #   image: eltonssilva/nodediverso:armv7_1.0
+  #   restart: always
+  #   volumes:
+  #     - ./configs:/home/node/app/configs
+  #   depends_on:
+  #     - db
+  #   ports:
+  #     - 8085:8085
+  #     - 4555:4555
 
   supervisorio:
     container_name: supervisorio
@@ -92,27 +105,27 @@ services:
       - ./mosquitto/config:/etc/mosquitto/config
       - ./mosquitto/data:/etc/mosquitto/data
     
-  homekit:
-    container_name: homekit
-    image: eltonssilva/homekit:armv7_1.0
-    restart: always
-    network_mode: host
+  # homekit:
+  #   container_name: homekit
+  #   image: eltonssilva/homekit:armv7_1.0
+  #   restart: always
+  #   network_mode: host
 
-    ports:
-      - 51826:51826
-      - 5353:5353
-    volumes:
-      - ./homekit/accessories:/home/HAP-NodeJS/accessories
+  #   ports:
+  #     - 51826:51826
+  #     - 5353:5353
+  #   volumes:
+  #     - ./homekit/accessories:/home/HAP-NodeJS/accessories
 
-  zigbee2mqtt:
-    container_name: zigbee2mqtt
-    image: koenkk/zigbee2mqtt:latest
-    volumes:
-      - ./zigbee2mqtt/data:/app/data
-    privileged: true
-    devices:
-      - /dev:/dev
-    restart: always
-    network_mode: host
-    environment:
-      - TZ=Europe/Amsterdam
+  # zigbee2mqtt:
+  #   container_name: zigbee2mqtt
+  #   image: koenkk/zigbee2mqtt:latest
+  #   volumes:
+  #     - ./zigbee2mqtt/data:/app/data
+  #   privileged: true
+  #   devices:
+  #     - /dev:/dev
+  #   restart: always
+  #   network_mode: host
+  #   environment:
+  #     - TZ=Europe/Amsterdam

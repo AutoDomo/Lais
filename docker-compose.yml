@@ -23,10 +23,9 @@ services:
     image: raymondmm/node-red
     restart: always
     ports:
-      - 1880:1880/tpc
-      - 8082:8082/tpc
-      - 8082:8082/tpc
-      - 30303:30303/udp
+      - "1880:1880/tpc"
+      - "8082:8082/tpc"
+      - "30303:30303/udp"
 
 
     volumes:

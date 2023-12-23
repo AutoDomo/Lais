@@ -106,15 +106,15 @@ services:
   #   volumes:
   #     - ./homekit/accessories:/home/HAP-NodeJS/accessories
 
-  # zigbee2mqtt:
-  #   container_name: zigbee2mqtt
-  #   image: koenkk/zigbee2mqtt:latest
-  #   volumes:
-  #     - ./zigbee2mqtt/data:/app/data
-  #   privileged: true
-  #   devices:
-  #     - /dev:/dev
-  #   restart: always
-  #   network_mode: host
-  #   environment:
-  #     - TZ=Europe/Amsterdam
+ zigbee2mqtt:
+    container_name: zigbee2mqtt
+    image: koenkk/zigbee2mqtt:latest
+    volumes:
+      - ./zigbee2mqtt/data:/app/data
+    privileged: true
+    devices:
+      - /dev:/dev
+    restart: always
+    network_mode: host
+    environment:
+      - TZ=Europe/Amsterdam
